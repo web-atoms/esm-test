@@ -3,7 +3,7 @@ import { pathToFileURL } from "node:url";
 async function run(name) {
     const url = pathToFileURL(name);
     // name = `file://${name.replaceAll("\\", "/")}`;
-    // console.log(`Executing ${name}`)
+    console.log(`Executing ${name}`);
     const r = await import(url.toString());
     if (!r.default) {
         return;
