@@ -1,0 +1,66 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Run All Tests",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/test.js",
+            "args": [
+                "--test-only-postgres"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "runtimeArgs": [
+                "--enable-source-maps"
+            ],
+            "request": "launch",
+            "name": "Run Selected Test File",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/test.js",
+            "args": [
+                "--test-file",
+                // "./dist/tests/eternity/eternity-tests.js"
+                "${file}",
+                "--test-only-postgres"
+                // "--test-only-sql-server"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "runtimeArgs": [
+                "--enable-source-maps"
+            ],
+            "request": "launch",
+            "name": "Run Selected Test SQL SERVER",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/test.js",
+            "args": [
+                "--test-file",
+                // "./dist/tests/eternity/eternity-tests.js"
+                "${file}",
+                "--test-only-sql-server"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ]
+        }
+    ]
+}

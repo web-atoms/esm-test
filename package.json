@@ -1,0 +1,25 @@
+{
+  "name": "@web-atoms/esm-test",
+  "version": "1.0.0",
+  "description": "Simple test runner for ES Test modules",
+  "homepage": "https://github.com/web-atoms/esm-test#readme",
+  "bugs": {
+    "url": "https://github.com/web-atoms/esm-test/issues"
+  },
+  "repository": {
+    "url": "https://github.com/web-atoms/esm-test.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "console-log-colors": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.3"
+  }
+}

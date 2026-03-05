@@ -1,0 +1,43 @@
+{
+    "terminal.integrated.profiles.windows": {
+        "PowerShell": {
+            "source": "PowerShell",
+            "args": [
+                "-ExecutionPolicy",
+                "Bypass"
+            ]
+        }
+   },
+   "terminal.integrated.defaultProfile.windows": "PowerShell",
+   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+	"eslint.format.enable": true,
+	"emmet.showSuggestionsAsSnippets": false,
+	"emmet.showAbbreviationSuggestions": false,
+	"emmet.excludeLanguages": [
+		"markdown",
+		"typescript",
+		"typescriptreact"
+    ],
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "cSpell.words": [
+        "Akash",
+        "bigserial",
+        "bpchar",
+        "bytea",
+        "DATALENGTH",
+        "datname",
+        "Millis",
+        "nvarchar",
+        "PGDATABASE",
+        "PGHOST",
+        "PGPASSWORD",
+        "PGPORT",
+        "PGUSER",
+        "quasis",
+        "srid",
+        "sysdatabases",
+        "varbinary"
+    ]
+}
