@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { readdir } from "node:fs/promises";
-import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "url";
-import { spawnPromise } from "./spawnPromise.js";
+import path, { join } from "node:path";
+import { pathToFileURL } from "url";
+import forkTest from "./forkTest.js";
 
 
 /**
@@ -48,6 +48,7 @@ export default class TestRunner {
                 if (testFile) {
                     console.error(error?.stack ?? error);
                 }
+                console.error(error);
                 // console.error(error?.stack ?? error);
                 continue;
             }
@@ -58,9 +59,10 @@ export default class TestRunner {
             console.log(`${results.length} tests ran successfully.`);
         } else {
             console.log(`${failed} Tests out of ${results.length} failed.`);
+            process.exitCode = exitCode;
         }
 
-        process.exit(exitCode);
+        // process.exit(exitCode);
     }
 
     private static testFile: any;
@@ -75,33 +77,26 @@ export default class TestRunner {
         if (!testFile) {
             const id = start++;
 
-            const runTestPath = import.meta.resolve("./run-test.js");
-
-
-            const t1 = setTimeout(() => console.warn(`Test ${name} ran for more than 30 seconds`), 30000);
             try {
                 let args = [];
                 let env = {};
                 const f = factory?.({ id, args, env: {}});
                 args = f?.args ?? args;
-                env = f.env ?? env;
-                const result = await spawnPromise("node", ["--enable-source-maps", fileURLToPath(runTestPath), name, ... args], {
-                    logData: false,
-                    logCommand: false,
-                    throwOnFail: true,
-                    logError: false,
+                env = f?.env ?? env;
+                const result = await forkTest(pathToFileURL(name),{
+                    args,
                     env
                 });
-                if (result.status > 0) {
-                    results.unshift({ name, error: result.all });
+                if (result.error) {
+                    results.unshift({ name, error: result.error + "\n" + result.log });
                 } else {
                     // console.log(`Test Success: ${name}`);
-                    results.push({ name, log: result.all });
+                    results.push({ name, log: result.log });
                 }
             } catch (e) {
+                console.error(e);
                 results.unshift({ name, error: e });
             }
-            clearTimeout(t1);
             return;
         }
 
@@ -126,11 +121,11 @@ export default class TestRunner {
 
     private static async runAll(dir, factory) {
         const { testFile } = TestRunner;
-        const items = await readdir(dir, { withFileTypes: true });
+        const items = await readdir(dir, { withFileTypes: true, recursive: true });
         for (const iterator of items) {
-            const next = dir + "/" +  iterator.name;
+            const next = join(iterator.parentPath, iterator.name);
             if (iterator.isDirectory()) {
-                await this.runAll(next, factory);
+                // await this.runAll(next, factory);
                 continue;
             }
             if (iterator.name.endsWith(".test.js")) {
