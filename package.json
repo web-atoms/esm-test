@@ -1,6 +1,6 @@
 {
   "name": "@web-atoms/esm-test",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Simple test runner for ES Test modules",
   "homepage": "https://github.com/web-atoms/esm-test#readme",
   "bugs": {
