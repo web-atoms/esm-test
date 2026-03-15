@@ -4,6 +4,13 @@ async function runTest(name) {
     console.warn = console.log;
     console.info = console.info;
     console.debug = console.debug;
+    if (process.env.JSDOM) {
+        const { JSDOM } = await import("jsdom" as any);
+        const { window  } = new JSDOM("<div/>");
+        const { document } = window;
+        global.document = document;
+        global.window = window;
+    }
     const r = await import(name);
     const def = r?.default;
     if(!def) {
@@ -13,16 +20,6 @@ async function runTest(name) {
     if (p?.then) {
         await p;
     }
-}
-
-global.document = null;
-
-if (process.env.JSDOM) {
-    const { JSDOM } = await import("jsdom" as any);
-    const { window  } = new JSDOM("<div/>");
-    const { document } = window;
-    global.document = document;
-    global.window = window;
 }
 
 process.on("message", (msg: { run }) => {
