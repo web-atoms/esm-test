@@ -19,10 +19,10 @@ global.document = null;
 
 if (process.env.JSDOM) {
     const { JSDOM } = await import("jsdom" as any);
-    const fragment = new JSDOM("<div/>");
-    const document = fragment.ownerDocument;
+    const { window  } = new JSDOM("<div/>");
+    const { document } = window;
     global.document = document;
-    global.window = document.defaultView;
+    global.window = window;
 }
 
 process.on("message", (msg: { run }) => {
