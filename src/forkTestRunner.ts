@@ -19,7 +19,7 @@ global.document = null;
 
 if (process.env.JSDOM) {
     const { JSDOM } = await import("jsdom" as any);
-    const fragment = JSDOM.fragment("<div/>");
+    const fragment = new JSDOM("<div/>");
     const document = fragment.ownerDocument;
     global.document = document;
     global.window = document.defaultView;
