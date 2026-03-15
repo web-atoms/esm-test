@@ -19,6 +19,7 @@ async function runTest(name) {
         const { document } = window;
         global.document = document;
         global.window = window;
+        global.CustomEvent = window.CustomEvent;
     }
     const r = await import(name);
     const def = r?.default;
