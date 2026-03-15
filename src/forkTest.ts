@@ -9,6 +9,9 @@ export default function forkTest(name, { args, env }) {
 
         const t1 = setTimeout(() => console.warn(`Test ${name} ran for more than 30 seconds`), 30000);
 
+        env ??= {};
+        env.NODE_OPTIONS ??= "--enable-source-maps";
+
         const test = fork( fileURLToPath(import.meta.resolve("./forkTestRunner.js")), {
             execArgv: args,
             env
