@@ -15,6 +15,9 @@ async function runTest(name) {
     }
 }
 
+global.document = null;
+global.window = null;
+
 process.on("message", (msg: { run }) => {
     const { run } = msg;
     if(!run) {
