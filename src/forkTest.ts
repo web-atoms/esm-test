@@ -35,6 +35,8 @@ export default function forkTest(name, { args, env }) {
         test.send({
             run: name
         });
+
+        test.on("error", reject);
     });
 
 }
