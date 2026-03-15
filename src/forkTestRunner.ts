@@ -6,8 +6,16 @@ async function runTest(name) {
     console.debug = console.debug;
     if (process.env.JSDOM) {
         const { JSDOM } = await import("jsdom" as any);
-        const { window  } = new JSDOM(`<!DOCTYPE html><html draggable="false"><head>
-    <meta charset="UTF-8"></head><body><div/></body></html>`);
+        const { window  } = new JSDOM(`<!DOCTYPE html>
+        <html>
+            <head>
+                <meta charset="UTF-8">
+            </head>
+            <body>
+                <div/>
+            </body>
+        </html>
+`);
         const { document } = window;
         global.document = document;
         global.window = window;
