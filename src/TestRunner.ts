@@ -14,6 +14,8 @@ let start: number;
 
 export default class TestRunner {
 
+    static log = false;
+
 
     public static async run(folder: string, factory?: ({ id, args, env }) => { id, args, env}) {
 
@@ -52,7 +54,9 @@ export default class TestRunner {
                 // console.error(error?.stack ?? error);
                 continue;
             }
-            console.log(`${name} executed.`);
+            if(TestRunner.log) {
+                console.log(`${name} executed.`);
+            }
         }
 
         if (exitCode === 0) {
