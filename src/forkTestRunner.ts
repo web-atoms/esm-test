@@ -17,6 +17,14 @@ async function runTest(name) {
 
 global.document = null;
 
+if (process.env.JSDOM) {
+    const { JSDOM } = await import("jsdom" as any);
+    const fragment = JSDOM.fragment("<div/>");
+    const document = fragment.ownerDocument;
+    global.document = document;
+    global.window = document.defaultView;
+}
+
 process.on("message", (msg: { run }) => {
     const { run } = msg;
     if(!run) {
